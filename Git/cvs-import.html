@@ -1,0 +1,69 @@
+
+
+<!DOCTYPE html>
+<html lang=en>
+  <head>
+    <title>How to Move a Repo from CVS to Git</title>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name=viewport content='width=device-width'>
+    <link rel=stylesheet href='http://www.w3.org/StyleSheets/TR/base'>
+    <style>
+      img { border: 0; }
+      dt { margin-top: 2em; }
+      dt.ok { background: #8F8; }
+      dt.not_ok { background: #F88; }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>How to Move a Repo from CVS to Git</h1>
+    </header>
+
+    <section>
+      <article>
+        <dl>
+          <dt>To move a repo from CVS to Git (in Linux), one may follow these steps: </dt>
+          <dd>
+            <ul>
+              <li>Create the repo in Git, say https://github.com/w3c/onespec;</li>
+              <li>Install cvsps, as easy as running: <code> apt-get install cvsps</code>;</li>
+              <li>Install git-cvs: <code> apt-get install git-cvs</code>;</li>
+              <li>
+                <span>Come back to a local directory, e.x. /tmp/.</span>
+                <ol>
+                  <li><code>cd /tmp/</code></li>
+                  <li><code>git cvsimport -v -a -i -k -C onespec.git &lt;target-cvs-module&gt;</code>. (This step might take a long time ...)</li>
+                  <li><code>cd onespec.git</code></li>
+                  <li><code>git checkout .</code></li>
+                  <li><code>git reset --hard</code></li>
+                  <li><code>git prune</code></li>
+                  <li><code>git remote add origin https://github.com/w3c/onespec</code></li>
+                  <li><code>git push origin --mirror</code></li>
+                </ol>
+              </li>
+            </ul>
+          </dd>
+          <dt>After this, you may want to push the files into gh-pages. Try:</dt>
+          <dd>
+            <ol>
+                <li><code>git checkout -b gh-pages</code></li>
+                <li><code>git push origin gh-pages</code></li>
+                <li>delete the <code>master</code> and <code>origin</code> branches</li>
+            </ol>
+          </dd>
+        </dl>
+      </article>
+
+      <article>
+        <dl>
+          <dt>Acknowledge</dt>
+          <dd>
+            <p>This note came from a SysReq answer from <a href="https://github.com/deniak">@deniak</a>.</p>
+        </dd>
+      </article>
+
+    </section>
+  </body>
+</html>
